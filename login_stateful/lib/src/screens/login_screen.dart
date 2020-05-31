@@ -7,10 +7,14 @@ class LoginScreen extends StatefulWidget {
   }
 }
 class LoginScreenState extends State<LoginScreen> {
+
+  final formKey = GlobalKey<FormState>();
+
   Widget build(context) {
     return Container(
       margin: EdgeInsets.all(20),
       child:Form(
+        key: formKey,
         child: Column(
           children: [
             emailField(),
@@ -31,6 +35,16 @@ class LoginScreenState extends State<LoginScreen> {
         labelText: 'Email Address',
         hintText: 'name@example.com',
       ),
+      validator: (String value) {
+        //return null if valid
+        //string with the error msg if invalid
+        if(!value.contains('@')) {
+          return 'Please enter a valid email';
+        }
+      },
+      onSaved: (String value) {
+        print(value);
+      },
     );
   }
   Widget passwordField() {
@@ -50,14 +64,25 @@ class LoginScreenState extends State<LoginScreen> {
         labelText: 'Password',
         hintText: 'Password',
       ),
+      validator: (String value) {
+        if(value.length < 7) {
+          return ('Pasword  must be atleast 7 char');
+        }
+      },
+      onSaved: (String value) {
+        print(value);
+      },
     );
   }
   Widget submitButtonField() {
     return RaisedButton(
       color: Colors.blue[400],
-      
       child: Text('Submit'),
-      onPressed: () {},
+      onPressed: () {
+        if(formKey.currentState.validate()) {
+          formKey.currentState.save();
+        };
+      },
     );
   }
 }
