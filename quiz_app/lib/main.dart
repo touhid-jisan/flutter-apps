@@ -10,7 +10,7 @@ class MyApp extends StatefulWidget {
     return MyAppState();
   }
 }
-class MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {    
 
   void answerQuestion() {
     setState(() {
@@ -31,11 +31,10 @@ class MyAppState extends State<MyApp> {
         body: Column(
           children: <Widget>[
             Question(questions[index]),
-            
-            Answer(), 
-            Answer(),
-            Answer(),
-            Answer(),
+            Answer(answerQuestion), 
+            Answer(answerQuestion),
+            Answer(answerQuestion),
+            Answer(answerQuestion),
           ],
         ),
       ),
