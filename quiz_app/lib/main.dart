@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import './result.dart';
+import './quiz.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,46 +10,52 @@ class MyApp extends StatefulWidget {
     return MyAppState();
   }
 }
-class MyAppState extends State<MyApp> {    
+class MyAppState extends State<MyApp> { 
 
-  void answerQuestion() {
+  final _questions = const[ //if i use "const [" than we can not add value
+      {'questionText' : 'Whats your fav food', 
+        'answerText' : [{'text':'Biriyani', 'score':6}, {'text':'Khichuri', 'score': 8}, {'text':'Kacchi', 'score': 10},{'text':'Polaw', 'score': 4}]
+      },
+      {'questionText' : 'Whats your fav color',
+        'answerText': [{'text':'Red', 'score': 6}, {'text': 'Black', 'score': 8}, {'text':'Blue','score': 10}, {'text':'Pink', 'score':4}]
+      },
+      {'questionText' : 'Whats your fav animal',
+        'answerText': [{'text': 'Cat','score': 10}, {'text': 'Dog', 'score': 8}, {'text': 'Bird', 'score': 6}, {'text': 'Snake', 'score': 4}]
+      },
+      {'questionText' : 'Whats your fav instructor',
+        'answerText': [{'text': 'Masx', 'score': 10}, {'text': 'Maxs', 'score': 8}, {'text': 'Mxas', 'score':6}, {'text': 'Mxsa', 'score':4}]
+      },
+    ];
+  var index = 0;
+
+  void resetQuiz() {
+    setState(() {
+      index = 0;
+      totalScore = 0;
+    });  
+  }
+
+  var totalScore = 0;
+  void _answerQuestion(int score) {
+    totalScore += score;
     setState(() {
       index = index+1;  
     });
     print(index);
   }
-
-  var index = 0;
+  
   Widget build(BuildContext context) {
-    var questions = [
-      {'questionText' : 'Whats your fav food', 
-        'answerText' : ['Biriyani', 'Khichuri', 'Kacchi','Polaw']
-      },
-      {'questionText' : 'Whats your fav color',
-        'answerText': ['Red', 'Black', 'Blue', '  Pink']
-      },
-      {'questionText' : 'Whats your fav animal',
-        'answerText': ['Cat', 'Dog', 'Bird', 'Snake']
-      },
-      {'questionText' : 'Whats your fav instructor',
-        'answerText': ['Masx', 'Maxs', 'Mxas', 'Mxsa']
-      },
-    ];
+    
     
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('Quiz App'), 
         ),
-        body: Column(
-          children: <Widget>[
-            Question(questions[index]['questionText']),
-            ...(questions[index]['answerText'] as List<String>).map((answer) {
-              return Answer(answerQuestion, answer);
-            }).toList(),
-          ],
-        ),
-      ),
+        body:index < _questions.length
+         ? Quiz(answerQuestion: _answerQuestion, questions: _questions, questionIndex: index) 
+         : Result(totalScore, resetQuiz)
+      ),  
     );
   }
 }
