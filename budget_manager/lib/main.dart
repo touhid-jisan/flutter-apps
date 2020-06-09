@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Budget Manager',
       home: MyHomePage(),
-    );
+    ); 
   }
 }
 
@@ -19,7 +19,21 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Budget Manager'),
       ),
-      body: Text('Body'),
+      body: Column(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            child : Card(
+              shadowColor: Colors.yellow,
+              child: Text('in card'),
+              elevation: 15,
+            ),
+          ),
+          Card(
+            child:Text('in second card'), 
+          ),
+        ],
+      ),
     );
   }
 }
