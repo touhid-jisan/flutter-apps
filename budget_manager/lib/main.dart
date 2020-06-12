@@ -1,7 +1,5 @@
-import 'package:budget_manager/widgets/transaction_list.dart';
+import './widgets/user_transaction.dart';
 import 'package:flutter/material.dart';
-import './models/transaction.dart';
-import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,8 +17,6 @@ class MyHomePage extends StatelessWidget {
 
   // String titleInput;
   // String amountInput;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
 
   @override
@@ -42,35 +38,7 @@ class MyHomePage extends StatelessWidget {
               elevation: 15,
             ),
           ),
-          Card(
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Enter Title'),
-                    //onChanged: (value) => titleInput=value,
-                    controller: titleController,
-                  ),
-                  TextField(
-                    decoration: InputDecoration(labelText: 'Enter Amount'),
-                    //onChanged: (value) => amountInput=value,
-                    controller: amountController,
-                  ),
-                  FlatButton(
-                      child: Text('Add Transiction'),
-                      textColor: Colors.purple, 
-                      onPressed: () {
-                        // print(titleInput);
-                        // print(amountInput);
-                        print(titleController.text);
-                      })
-                ],
-              ),
-            ),
-          ),
-          TransactionList(),
+          UserTransaction(),
         ],
       ),
     );
