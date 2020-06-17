@@ -9,6 +9,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.blue,
+
+        // fontFamily: 'Quicksand',
+        // for 1 we can use this theme for only appbar style
+        // no 2 is globally available title text theme
+        // 1 - notmal text theme - we can use this theme globally
+        textTheme: ThemeData.light().textTheme.copyWith(
+              title: TextStyle(
+                fontFamily: 'Opensans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+              ),
+            ),
+        // 2- we can use this theme in only appbar style
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontFamily: 'Opensans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
+      ),
+      debugShowCheckedModeBanner: false,
       title: 'Budget Manager',
       home: MyHomePage(),
     );
@@ -27,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
         id: DateTime.now().toString(),
-        title: txTitle, 
+        title: txTitle,
         amount: txAmount,
         date: DateTime.now());
     setState(() {
@@ -39,10 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-         return GestureDetector(
+          return GestureDetector(
             child: NewTransaction(_addNewTransaction),
             onTap: () {},
-            );
+          );
         });
   }
 
@@ -50,7 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Budget Manager'),
+        title: Text(
+          'Budget Manager',
+          //style: TextStyle(fontFamily: 'OpenSans'),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -68,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
               width: double.infinity,
               child: Card(
                 shadowColor: Colors.yellow,
-                child: Text('Chart'),
+                child: Text('New Chart Example'),
                 elevation: 15,
               ),
             ),
